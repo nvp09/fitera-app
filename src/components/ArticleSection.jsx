@@ -1,13 +1,7 @@
 import { Search, ChevronDown } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import ArticleCard from "./article-card";
-
-import exercise1 from "./pic/cat1.jpg";
-import exercise2 from "./pic/cat2.jpg";
-import exercise3 from "./pic/cat3.jpg";
-import exercise4 from "./pic/cat4.jpg";
-import exercise5 from "./pic/cat5.jpg";
-import exercise6 from "./pic/cat6.jpg";
+import blogPosts from "../data/blogPosts";
+import BlogCard from "./BlogCard";
 
 export default function ArticleSection() {
   return (
@@ -18,8 +12,8 @@ export default function ArticleSection() {
         </h2>
 
         {/* ================= MOBILE ================= */}
-        <div className="md:hidden -mx-4">
-          <div className="rounded-[16px] bg-[#F3F1ED] p-4 space-y-3 mx-4">
+        <div className="md:hidden">
+          <div className="rounded-[16px] bg-[#F3F1ED] p-4 space-y-3">
             {/* Search */}
             <div className="relative">
               <Input
@@ -87,76 +81,23 @@ export default function ArticleSection() {
         >
           {/* Category tabs */}
           <div className="flex items-center gap-2">
-            <button
-              className="
-                px-4 py-2
-                text-[14px]
-                text-[#6B6B6B]
-                cursor-pointer
-                rounded-[10px]
-                hover:bg-[yellow]
-                hover:text-[#1C1C1C]
-                hover:text-[15px]
-              "
-            >
-              Highlight
-            </button>
-            <button
-              className="
-                px-4 py-2
-                text-[14px]
-                text-[#6B6B6B]
-                cursor-pointer
-                rounded-[10px]
-                hover:bg-[yellow]
-                hover:text-[#1C1C1C]
-                hover:text-[15px]
-              "
-            >
-              Cardio
-            </button>
-            <button
-              className="
-                px-4 py-2
-                text-[14px]
-                text-[#6B6B6B]
-                cursor-pointer
-                rounded-[10px]
-                hover:bg-[yellow]
-                hover:text-[#1C1C1C]
-                hover:text-[15px]
-              "
-            >
-              Strength
-            </button>
-            <button
-              className="
-                px-4 py-2
-                text-[14px]
-                text-[#6B6B6B]
-                cursor-pointer
-                rounded-[10px]
-                hover:bg-[yellow]
-                hover:text-[#1C1C1C]
-                hover:text-[15px]
-              "
-            >
-              Yoga
-            </button>
-            <button
-              className="
-                px-4 py-2
-                text-[14px]
-                text-[#6B6B6B]
-                cursor-pointer
-                rounded-[10px]
-                hover:bg-[yellow]
-                hover:text-[#1C1C1C]
-                hover:text-[15px]
-              "
-            >
-              Nutrition
-            </button>
+            {["Highlight", "Cat", "Inspiration", "General"].map((item) => (
+              <button
+                key={item}
+                className="
+                  px-4 py-2
+                  text-[14px]
+                  text-[#6B6B6B]
+                  cursor-pointer
+                  rounded-[10px]
+                  hover:bg-[yellow]
+                  hover:text-[#1C1C1C]
+                  hover:text-[15px]
+                "
+              >
+                {item}
+              </button>
+            ))}
           </div>
 
           {/* Search */}
@@ -180,57 +121,40 @@ export default function ArticleSection() {
             />
           </div>
         </div>
-      </div>
 
-      <div className="px-4 pb-24 mt-6">
-        <div className="grid gap-8 md:grid-cols-2">
-          <ArticleCard
-            image={exercise1}
-            title="Beginner's Guide to Cardio: Building Endurance One Step at a Time"
-            description="Discover essential cardio exercises for beginners, from brisk walking to cycling, and learn how to build your endurance safely and effectively…"
-          />
-          <ArticleCard
-            image={exercise2}
-            title="Strength Training Fundamentals: Building Muscle the Right Way"
-            description="Learn the basics of strength training, including proper form, essential exercises, and how to create a workout routine that fits your fitness goals…"
-          />
-          <ArticleCard
-            image={exercise3}
-            title="Yoga for Flexibility: Unlock Your Body's Full Potential"
-            description="Explore how yoga can improve your flexibility, reduce muscle tension, and enhance your overall physical performance in just minutes a day…"
-          />
-          <ArticleCard
-            image={exercise4}
-            title="Fueling Your Workouts: Nutrition Essentials for Active Lifestyles"
-            description="Discover the best foods to eat before and after workouts, understand macronutrients, and learn how proper nutrition can accelerate your fitness results…"
-          />
-          <ArticleCard
-            image={exercise5}
-            title="Staying Motivated: How to Maintain Your Fitness Journey Long-Term"
-            description="Learn proven strategies to overcome workout plateaus, stay consistent with your exercise routine, and maintain motivation even when life gets busy…"
-          />
-          <ArticleCard
-            image={exercise6}
-            title="Home Workout Essentials: Effective Exercises You Can Do Anywhere"
-            description="Build a complete home gym routine with no equipment needed. Discover bodyweight exercises that target all major muscle groups and keep you fit…"
-          />
-        </div>
+        {/* ================= ARTICLES LIST ================= */}
+        <section className="mt-8">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {blogPosts.map((post) => (
+              <BlogCard
+                key={post.id}
+                image={post.image}
+                category={post.category}
+                title={post.title}
+                description={post.description}
+                author={post.author}
+                date={post.date}
+              />
+            ))}
+          </div>
 
-        <button
-          className="
-            mt-12
-            mx-auto
-            block
-            text-sm
-            underline
-            text-gray-600
-            cursor-pointer
-            hover:text-gray-900
-            hover:scale-105
-          "
-        >
-          View more
-        </button>
+          <div className="mt-10 flex justify-center">
+            <button
+              type="button"
+              className="
+                border-b border-[#1C1C1C]
+                pb-1
+                text-[14px]
+                cursor-pointer
+                text-gray-700
+                hover:text-[green]
+                transition-colors
+              "
+            >
+              View more
+            </button>
+          </div>
+        </section>
       </div>
     </section>
   );

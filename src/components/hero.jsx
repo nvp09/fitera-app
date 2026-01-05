@@ -6,7 +6,7 @@ export default function MobileHero() {
       <div className="md:grid md:grid-cols-3 md:gap-8 md:items-center">
         
         {/* LEFT : Headline */}
-        <div className="md:text-left text-center">
+        <div className="md:text-right text-center">
           <h1 className="text-[28px] md:text-[36px] font-semibold leading-[1.2] text-[#1C1C1C]">
             Stay Informed,
             <br />
@@ -30,12 +30,11 @@ export default function MobileHero() {
 
         {/* RIGHT : Author */}
         <div className="mt-6 md:mt-0">
-          <p className="text-[12px] text-[#8B8B8B]">Author</p>
+          <p className="text-[12px] text-[#8B8B8B]">-Author</p>
           <p className="mt-1 font-medium text-[#1C1C1C]">Thompson P.</p>
 
           <p className="mt-3 text-[14px] leading-relaxed text-[#6B6B6B]">
-            I am a pet enthusiast and freelance writer who specializes in animal
-            behavior and care.
+          I am a pet enthusiast and freelance writer who specializes in animal behavior and care. With a deep love for cats, I enjoy sharing insights on feline companionship and wellness.
           </p>
 
           <p className="mt-3 text-[14px] leading-relaxed text-[#6B6B6B]">
