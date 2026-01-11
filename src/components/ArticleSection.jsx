@@ -1,9 +1,28 @@
-import { Search, ChevronDown } from "lucide-react";
+import { useState } from "react";
+import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 import blogPosts from "../data/blogPosts";
 import BlogCard from "./BlogCard";
 
+const categories = ["Highlight", "Cat", "Inspiration", "General"];
+
 export default function ArticleSection() {
+  const [category, setCategory] = useState("Highlight");
+
+  const filteredPosts =
+    category === "Highlight"
+      ? blogPosts
+      : blogPosts.filter(
+          (post) => post.category === category
+        );
+
   return (
     <section className="mt-14">
       <div className="px-4">
@@ -19,15 +38,7 @@ export default function ArticleSection() {
               <Input
                 type="text"
                 placeholder="Search"
-                className="
-                  h-12
-                  rounded-[14px]
-                  border-gray-200
-                  bg-white
-                  pl-4 pr-10
-                  text-[14px]
-                  outline-none
-                "
+                className="h-12 rounded-[14px] border-gray-200 bg-white pl-4 pr-10 text-[14px]"
               />
               <Search
                 size={18}
@@ -35,69 +46,79 @@ export default function ArticleSection() {
               />
             </div>
 
-            {/* Category */}
+            {/* Category (Mobile Select) */}
             <div>
               <p className="mb-1 px-1 text-[12px] text-[#8B8B8B]">
                 Category
               </p>
 
-              <div className="relative">
-                <select
+              <Select value={category} onValueChange={setCategory}>
+                <SelectTrigger
                   className="
-                    w-full h-12
-                    rounded-[14px]
-                    border border-gray-200
-                    bg-white
-                    pl-4 pr-10
-                    text-[14px]
-                    appearance-none
-                    outline-none
+                    h-12 w-full rounded-[16px]
+                    bg-white border border-[#E5E2DD]
+                    px-4 text-[14px] text-[#1C1C1C]
+                    cursor-pointer hover:text-[15px]
+                    shadow-none focus:ring-0
                   "
                 >
-                  <option>Highlight</option>
-                  <option>Cat</option>
-                  <option>Inspiration</option>
-                  <option>General</option>
-                </select>
+                  <SelectValue />
+                </SelectTrigger>
 
-                <ChevronDown
-                  size={18}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
-                />
-              </div>
+                <SelectContent
+                  className="
+                    mt-2 rounded-[16px]
+                    border border-[#E5E2DD]
+                    bg-white p-2 shadow-lg
+                  "
+                >
+                  {categories.map((item) => (
+                    <SelectItem
+                      key={item}
+                      value={item}
+                      className="
+                        relative flex items-center
+                        rounded-[12px]
+                        pl-8 pr-4 py-3
+                        text-[14px] text-[#1C1C1C]
+                        cursor-pointer
+                        focus:bg-[#F3F1ED]
+                      "
+                    >
+                      {item}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
         </div>
 
         {/* ================= DESKTOP ================= */}
-        <div
-          className="
-            hidden md:flex
-            items-center justify-between
-            rounded-[16px]
-            bg-[#F3F1ED]
-            px-4 py-3
-          "
-        >
-          {/* Category tabs */}
+        <div className="hidden md:flex items-center justify-between rounded-[16px] bg-[#F3F1ED] px-4 py-3">
+          {/* Category buttons */}
           <div className="flex items-center gap-2">
-            {["Highlight", "Cat", "Inspiration", "General"].map((item) => (
-              <button
-                key={item}
-                className="
-                  px-4 py-2
-                  text-[14px]
-                  text-[#6B6B6B]
-                  cursor-pointer
-                  rounded-[10px]
-                  hover:bg-[yellow]
-                  hover:text-[#1C1C1C]
-                  hover:text-[15px]
-                "
-              >
-                {item}
-              </button>
-            ))}
+            {categories.map((item) => {
+              const isActive = category === item;
+
+              return (
+                <button
+                  key={item}
+                  disabled={isActive}
+                  onClick={() => setCategory(item)}
+                  className={`
+                    px-4 py-2 rounded-[8px] text-[14px] transition-all
+                    ${
+                      isActive
+                        ? "bg-[#DAD6D1] text-[#1C1C1C] cursor-default"
+                        : "text-[#6B6B6B] hover:bg-[orange] hover:text-[#1C1C1C] cursor-pointer hover:text-[15px]"
+                    }
+                  `}
+                >
+                  {item}
+                </button>
+              );
+            })}
           </div>
 
           {/* Search */}
@@ -105,15 +126,7 @@ export default function ArticleSection() {
             <Input
               type="text"
               placeholder="Search"
-              className="
-                h-10
-                rounded-[10px]
-                border-gray-200
-                bg-white
-                pl-4 pr-10
-                text-[14px]
-                outline-none
-              "
+              className="h-10 rounded-[10px] border-gray-200 bg-white pl-4 pr-10 text-[14px]"
             />
             <Search
               size={16}
@@ -125,7 +138,7 @@ export default function ArticleSection() {
         {/* ================= ARTICLES LIST ================= */}
         <section className="mt-8">
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {blogPosts.map((post) => (
+            {filteredPosts.map((post) => (
               <BlogCard
                 key={post.id}
                 image={post.image}
@@ -138,16 +151,18 @@ export default function ArticleSection() {
             ))}
           </div>
 
-          <div className="mt-10 flex justify-center">
+          {/* ================= VIEW MORE ================= */}
+          <div className="mt-16 mb-20 flex justify-center">
             <button
               type="button"
               className="
                 border-b border-[#1C1C1C]
                 pb-1
                 text-[14px]
-                cursor-pointer
-                text-gray-700
+                text-[#1C1C1C]
                 hover:text-[green]
+                cursor-pointer
+                hover:text-[15px]
                 transition-colors
               "
             >

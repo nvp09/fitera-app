@@ -41,7 +41,7 @@ function MobileFooter() {
         </div>
 
         {/* RIGHT: Home page */}
-        <p className="text-sm underline text-gray-700 cursor-pointer hover:opacity-70">
+        <p className="text-sm underline text-gray-700 cursor-pointer hover:text-[15px] hover:opacity-70">
           Home page
         </p>
       </div>
