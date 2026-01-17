@@ -1,17 +1,14 @@
-import MobileNavbar from "./components/navbar";
-import MobileHero from "./components/hero";
-import ArticleSection from "./components/ArticleSection";
-import MobileFooter from "./components/footer";
+import { Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import PostPage from "./pages/PostPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
-function App() {
+export default function App() {
   return (
-    <>
-      <MobileNavbar />
-      <MobileHero />
-      <ArticleSection />
-      <MobileFooter />
-    </>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/post/:postId" element={<PostPage />} />
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
   );
 }
-
-export default App;
