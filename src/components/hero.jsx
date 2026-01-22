@@ -5,7 +5,7 @@ export default function MobileHero() {
     <section className="px-4 pt-6 md:pt-12">
       <div className="md:grid md:grid-cols-3 md:gap-8 md:items-center">
         
-        {/* LEFT : Headline */}
+        {/* : Headline */}
         <div className="md:text-right text-center">
           <h1 className="text-[28px] md:text-[36px] font-semibold leading-[1.2] text-[#1C1C1C]">
             Stay Informed,
@@ -19,7 +19,7 @@ export default function MobileHero() {
           </p>
         </div>
 
-        {/* CENTER : Image */}
+        {/*  : Image */}
         <div className="mt-6 md:mt-0">
           <img
             src={heroImg}
@@ -28,7 +28,7 @@ export default function MobileHero() {
           />
         </div>
 
-        {/* RIGHT : Author */}
+        {/*  : Author */}
         <div className="mt-6 md:mt-0">
           <p className="text-[12px] text-[#8B8B8B]">-Author</p>
           <p className="mt-1 font-medium text-[#1C1C1C]">Thompson P.</p>

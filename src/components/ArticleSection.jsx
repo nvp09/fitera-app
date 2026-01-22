@@ -241,8 +241,8 @@ export default function ArticleSection() {
         {/* ================= ARTICLES LIST ================= */}
         <section className="mt-8">
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post) => (
-              <BlogCard key={post.id} {...post} />
+            {posts.map((post, index) => (
+              <BlogCard key={`post-${post.id}-${index}`} {...post} />
             ))}
           </div>
 

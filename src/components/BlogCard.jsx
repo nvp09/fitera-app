@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import authorAvatar from "./pic/pic-for-assignment.jpg";
-import { formatDate } from "../api/utils/formatDate";
+import { formatDate } from "../utils/dateUtils";
 
 export default function BlogCard({
   id,
