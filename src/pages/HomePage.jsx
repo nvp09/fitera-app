@@ -1,4 +1,4 @@
-import MobileHero from "../components/hero";
+import MobileHero from "../components/Hero";
 import ArticleSection from "../components/ArticleSection";
 
 export default function HomePage() {
