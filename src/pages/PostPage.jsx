@@ -8,42 +8,42 @@ import { useComments } from "../hooks/useComments";
 import LikeShareBar from "../components/LikeShareBar";
 import CommentSection from "../components/CommentSection";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 export default function PostPage() {
   const { postId } = useParams();
   const navigate = useNavigate();
   const { user, isLoggedIn } = useAuth();
 
   const [post, setPost] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
-  // Custom hooks
+  // ===== Custom hooks =====
   const { likeCount, liked, toggleLike } = useLikes(postId, user);
-  const { comments, addComment } = useComments(postId);
+  const { comments, addComment, deleteComment } = useComments(postId);
 
-  // Load post
+  // ===== Load single post =====
   useEffect(() => {
     const fetchPost = async () => {
       setIsLoading(true);
       try {
         const res = await axios.get(
-          "https://blog-post-project-api.vercel.app/posts"
+          `${API_BASE_URL}/posts/${postId}`
         );
 
-        const foundPost = res.data.posts.find(
-          (item) => item.id === Number(postId)
-        );
-
-        setPost(foundPost || null);
+        setPost(res.data.data);
       } catch (error) {
-        console.error(error);
+        console.error("Fetch post error:", error);
         setPost(null);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchPost();
+    if (postId) {
+      fetchPost();
+    }
   }, [postId]);
 
   if (isLoading) return <p className="p-6">Loading...</p>;
@@ -51,13 +51,21 @@ export default function PostPage() {
 
   const requireLogin = () => setShowLoginModal(true);
 
+  // ===== Like =====
   const handleLike = () => {
     if (!isLoggedIn) return requireLogin();
     toggleLike();
   };
 
+  // ===== Add comment =====
   const handleAddComment = (comment) => {
     addComment(comment);
+  };
+
+  // ===== Admin delete comment =====
+  const handleDeleteComment = (commentId) => {
+    if (user?.role !== "admin") return;
+    deleteComment(commentId);
   };
 
   const shareUrl = window.location.href;
@@ -80,7 +88,9 @@ export default function PostPage() {
           {post.title}
         </h1>
 
-        <p className="mt-2 text-[14px] text-gray-600">By {post.author}</p>
+        <p className="mt-2 text-[14px] text-gray-600">
+          By {post.author ?? "Unknown"}
+        </p>
 
         <div className="markdown mt-8">
           <ReactMarkdown>{post.content}</ReactMarkdown>
@@ -99,6 +109,7 @@ export default function PostPage() {
         <CommentSection
           comments={comments}
           onAddComment={handleAddComment}
+          onDeleteComment={handleDeleteComment}
           isLoggedIn={isLoggedIn}
           user={user}
         />

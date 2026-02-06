@@ -17,6 +17,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import AdminLoginPage from "./pages/AdminLoginPage";
 import AdminArticleDetail from "./pages/AdminArticleDetail";
 import NotFoundPage from "./pages/NotFoundPage";
+import HealthTestPage from "./pages/HealthTestPage";
 
 export default function App() {
   return (
@@ -47,6 +48,8 @@ export default function App() {
         <Route path="/admin/article/:postId" element={<AdminArticleDetail />} />
       </Route>
 
+      {/* ====== HEALTH TEST =======*/}
+      <Route path="/health-test" element={<HealthTestPage />} />
       {/* ====== FALLBACK =======*/}
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

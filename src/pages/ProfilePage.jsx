@@ -1,21 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
+import { fetchProfile } from "../api/utils/profile";
 
 export default function ProfilePage() {
-  // ===== mock user data  =====
+  // ===== state =====
   const [name, setName] = useState("Moodeng ja");
   const [username, setUsername] = useState("moodeng_cute");
   const [email] = useState("moodeng.cute@gmail.com");
+  const [loading, setLoading] = useState(true);
+
+  // ===== load profile from backend =====
+  useEffect(() => {
+    async function loadProfile() {
+      try {
+        const response = await fetchProfile();
+        setName(response.data.name); // john
+      } catch (error) {
+        console.error("Failed to load profile:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadProfile();
+  }, []);
 
   // ===== handler save =====
   const handleSave = (e) => {
     e.preventDefault();
 
-    //  mock success
     toast.success("Saved profile", {
       description: "Your profile has been successfully updated",
     });
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#F7F5F0]">
+        <p className="text-sm text-gray-500">Loading profile...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#F7F5F0] py-16">

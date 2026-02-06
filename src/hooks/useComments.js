@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 const STORAGE_KEY = "comments";
 
 /** Custom hook for managing comments
-* @param {string} postId - Post ID
+ * @param {string} postId - Post ID
  * @returns {Object} Comment state and handlers
  */
 export function useComments(postId) {
@@ -11,7 +11,8 @@ export function useComments(postId) {
 
   // Load comments from localStorage
   useEffect(() => {
-    const storedComments = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+    const storedComments =
+      JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
     setComments(storedComments[postId] || []);
   }, [postId]);
 
@@ -30,16 +31,34 @@ export function useComments(postId) {
     const updatedComments = [...comments, newComment];
     setComments(updatedComments);
 
-    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+    const stored =
+      JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
     stored[postId] = updatedComments;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
 
     return true;
   };
 
+  /**
+   * Delete comment (Admin only – permission check ทำที่ component)
+   * @param {number} commentId
+   */
+  const deleteComment = (commentId) => {
+    const updatedComments = comments.filter(
+      (comment) => comment.id !== commentId
+    );
+
+    setComments(updatedComments);
+
+    const stored =
+      JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+    stored[postId] = updatedComments;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
+  };
+
   return {
     comments,
     addComment,
+    deleteComment, //
   };
 }
-

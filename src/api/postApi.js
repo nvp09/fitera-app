@@ -1,24 +1,15 @@
 import axios from "axios";
 
-const BASE_URL = "https://blog-post-project-api.vercel.app/posts";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-export async function fetchPosts({
-  category,
-  keyword,
-  page = 1,
-  limit = 6,
-}) {
-  const params = { page, limit };
+// GET /posts
+export const fetchPosts = async () => {
+  const res = await axios.get(`${API_BASE_URL}/posts`);
+  return res.data;
+};
 
-  if (category && category !== "Highlight") {
-    params.category = category;
-  }
-
-  if (keyword && keyword.trim() !== "") {
-    params.keyword = keyword;
-  }
-
-  const response = await axios.get(BASE_URL, { params });
-  return response.data;
-}
-
+// POST /posts
+export const createPost = async (payload) => {
+  const res = await axios.post(`${API_BASE_URL}/posts`, payload);
+  return res.data;
+};
