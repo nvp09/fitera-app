@@ -1,16 +1,72 @@
-# React + Vite
+# Fitera (Personal Blog Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend for Personal Blog Project  
+Built with React + Vite
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
 
-## React Compiler
+Frontend:
+https://fitera.vercel.app
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Backend API:
+https://fitera-api.vercel.app
 
-## Expanding the ESLint configuration
+Health Check:
+https://fitera-api.vercel.app/health
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 📌 Features
+
+- Fetch posts from backend API
+- Connect frontend and backend (Full Stack)
+- Axios for API requests
+- Environment variable configuration
+- Deployed on Vercel
+
+---
+
+## 🔗 API Integration
+
+Base URL (from .env):
+
+VITE_API_BASE_URL=https://fitera-api.vercel.app
+
+Example Request:
+
+GET /posts
+
+---
+
+## 🛠 Run Locally
+
+1. Install dependencies:
+    
+    ```
+npm install
+    ```
+
+2. Start development server:
+
+    ```
+npm run dev
+    ```
+
+---
+
+## ⚙️ Environment Variables
+
+
+Create a `.env` file:
+
+```
+VITE_API_BASE_URL=https://fitera-api.vercel.app
+```
+
+---
+
+## 🔗 Related Repository
+
+Backend: https://github.com/nvp09/fitera-api
