@@ -8,12 +8,12 @@ Built with React + Vite
 ## 🚀 Live Demo
 
 Frontend:
-https://fitera.vercel.app
+https://fitera-app.vercel.app
 
 Backend API:
 https://fitera-api.vercel.app
 
-Health Check:
+Health Check API:
 https://fitera-api.vercel.app/health
 
 ---
