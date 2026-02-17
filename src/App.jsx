@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-
+import CreatePostComponent from "./pages/CreatePostComponent";
 // ===== layouts =====
 import PublicLayout from "./layouts/PublicLayout";
 import AuthLayout from "./layouts/AuthLayout";
@@ -46,6 +46,8 @@ export default function App() {
       <Route element={<AdminLayout />}>
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/article/:postId" element={<AdminArticleDetail />} />
+        <Route path="/admin/create-post" element={<CreatePostComponent />} />
+
       </Route>
 
       {/* ====== HEALTH TEST =======*/}

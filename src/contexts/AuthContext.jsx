@@ -8,6 +8,10 @@ const STORAGE_KEY = "auth_user";
 
 // 2. provider
 export function AuthProvider({ children }) {
+
+  //  เพิ่ม loading state
+  const [isLoading, setIsLoading] = useState(true);
+
   //  โหลด user จาก localStorage ตอนเริ่ม
   const [user, setUser] = useState(() => {
     try {
@@ -28,12 +32,15 @@ export function AuthProvider({ children }) {
     }
   }, [user]);
 
+  // 🔥 บอกว่าโหลดเสร็จแล้วหลัง mount
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
+
   // ===== login =====
   const login = (userData) => {
-   
     console.log("AuthContext - login called with:", userData);
     setUser(userData);
-    console.log("AuthContext - user state updated");
   };
 
   // ===== logout =====
@@ -46,7 +53,8 @@ export function AuthProvider({ children }) {
     <AuthContext.Provider
       value={{
         user,
-        isLoggedIn: !!user, // ⭐ ใช้เช็คง่าย ๆ
+        isLoggedIn: !!user,
+        isLoading, // 🔥 เพิ่มอันนี้
         login,
         logout,
       }}
